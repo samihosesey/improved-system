@@ -1,4 +1,4 @@
-import requests
+import http.client
 import json 
 from configparser import ConfigParser
 
@@ -10,9 +10,16 @@ api = config.get('Api','api')
 uri = config.get('Api','uri')
 headers = config.get('Api','headers')
 plan = config.get('Api','plan')
+token = config.get('Api','token')
+v2 = config.get('Api','v2')
 
-response = requests.get(api+"players/44")
-if response.status_code == 200:
-    print("200")
-else :
-    print("no")
+connection = http.client.HTTPConnection(api)
+headers = {'X=Auth_token':token}
+connection.request('GET',v2+uri,None,headers)
+response = json.loads(connection.getresponse().read().decode())
+print (response)
+
+for c in response['competitions']:
+    print (c['area']['id']+'|'+c['area']['name'])
+
+
