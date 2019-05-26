@@ -19,7 +19,7 @@ connection.request('GET',v2+uri,None,headers)
 response = json.loads(connection.getresponse().read().decode())
 print (response)
 
-for c in response['competitions']:
-    print (c['area']['id']+'|'+c['area']['name'])
+#for c in response['competitions']:
+    #print (c['area']['id']+'|'+c['area']['name'])
 
 
